@@ -1,11 +1,17 @@
 {
-  "hosting": [
-    {
-      "target": "apphosting",
-      "source": ".",
-      "frameworksBackend": {
-        "region": "us-central1"
+  "hosting": {
+    "site": "airealestate",
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
       }
-    }
-  ]
+    ]
+  }
 }
