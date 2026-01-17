@@ -1,7 +1,7 @@
 {
   "hosting": {
     "site": "airealestate",
-    "public": "public",
+    "public": "out",
     "ignore": [
       "firebase.json",
       "**/.*",
