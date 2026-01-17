@@ -1,0 +1,109 @@
+/**
+ * Core Philosophy: This ruleset establishes a "Public Read, Admin Write" security model.
+ * All data, including property listings, locations, types, and site configurations, is
+ * considered public and can be read by any user, including unauthenticated ones. This
+ * supports the primary use case of a public-facing property listing application.
+ *
+ * Data Structure: The data model is flat, with four top-level collections:
+ * - /site_configs
+ * - /property_types
+ * - /locations
+ * - /property_listings
+ * This structure avoids nested reads and simplifies security rules, leading to better
+ * performance. Relationships between entities (e.g., a listing and its location) are
+ * managed via stored IDs, not nested documents.
+ *
+ * Key Security Decisions:
+ * - Public Read-Access: All collections are readable by anyone (`get`, `list`) to
+ *   facilitate a public browsing experience.
+ * - Write Lockdown: Because the data schemas provided do not include any user ownership
+ *   fields (like `ownerId` or `adminId`), all write operations (`create`, `update`,
+ *   `delete`) are currently disabled for all collections (`if false;`). This is the
+ *   most secure default posture. To enable writes, the data model must be updated to
+ *   include an ownership field, and the rules updated accordingly.
+ * - No User-Specific Data: There are no user-specific collections (e.g., /users/{userId}).
+ *   The entire database is treated as globally shared content.
+ *
+ * Denormalization for Authorization: This principle is not currently applied as there
+ * are no complex authorization checks. The flat structure already avoids costly `get()`
+ * calls between documents for security checks. If roles or ownership are added, relevant
+ * fields (e.g., an `ownerId` on a `PropertyListing`) should be denormalized directly
+ * onto the documents they secure.
+ *
+ * Structural Segregation: This principle is not applicable as the current data model does
+ * not distinguish between private and public data within the same collection. All data
+ * is treated as public.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * @description Controls access to site configuration documents. These are public-read,
+     * but writes are disabled pending the implementation of an admin role system.
+     * @path /site_configs/{siteConfigId}
+     * @allow (get) Any user can read a specific site configuration.
+     * @deny (create) No user, signed-in or not, can create a new site configuration.
+     * @principle Secures global configuration data by making it read-only for clients.
+     */
+    match /site_configs/{siteConfigId} {
+      allow get: if true;
+      allow list: if true;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    /**
+     * @description Manages access to property type definitions (e.g., 'House', 'Apartment').
+     * This is globally shared, read-only data.
+     * @path /property_types/{propertyTypeId}
+     * @allow (list) Any client can list all available property types.
+     * @deny (update) No user can modify an existing property type.
+     * @principle Protects foundational app data from modification by end-users.
+     */
+    match /property_types/{propertyTypeId} {
+      allow get: if true;
+      allow list: if true;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    /**
+     * @description Governs access to location data. Locations are public and can be
+     * viewed by anyone but cannot be modified by clients.
+     * @path /locations/{locationId}
+     * @allow (get) Any user can retrieve the details of a specific location.
+     * @deny (delete) No user can delete a location document.
+     * @principle Ensures the integrity of shared geographical data by making it immutable for clients.
+     */
+    match /locations/{locationId} {
+      allow get: if true;
+      allow list: if true;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    /**
+     * @description Defines access for property listings. Listings are public to browse and view.
+     * Writes are currently disabled because the data model lacks an ownership field.
+     * @path /property_listings/{propertyListingId}
+     * @allow (get) Any anonymous user can view a property listing.
+     * @deny (create) A signed-in user cannot create a new property listing.
+     * @principle Implements a "Public Read, Owner Write" pattern, but defaults to
+     * "no-write" as ownership cannot be verified.
+     */
+    match /property_listings/{propertyListingId} {
+      allow get: if true;
+      allow list: if true;
+
+      // CRITICAL: Cannot implement owner-only writes. The 'PropertyListing' entity is missing an 'ownerId' or 'authorId' field.
+      // Writes are disabled to prevent unauthorized data modification.
+      allow create: if false; // TODO: Add owner validation once the schema is updated with an ownership field (e.g., request.resource.data.ownerId == request.auth.uid).
+      allow update: if false; // TODO: Add owner validation (e.g., resource.data.ownerId == request.auth.uid).
+      allow delete: if false; // TODO: Add owner validation (e.g., resource.data.ownerId == request.auth.uid).
+    }
+  }
+}

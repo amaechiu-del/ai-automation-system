@@ -1,0 +1,11 @@
+{
+  "hosting": [
+    {
+      "target": "apphosting",
+      "source": ".",
+      "frameworksBackend": {
+        "region": "us-central1"
+      }
+    }
+  ]
+}
