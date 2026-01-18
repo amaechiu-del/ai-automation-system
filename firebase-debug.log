@@ -1,0 +1,48 @@
+[debug] [2026-01-17T18:35:47.559Z] ----------------------------------------------------------------------
+[debug] [2026-01-17T18:35:47.563Z] Command:       C:\node.exe C:\Users\Amaechi Ubadike\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js hosting:sites:list
+[debug] [2026-01-17T18:35:47.564Z] CLI Version:   15.3.1
+[debug] [2026-01-17T18:35:47.564Z] Platform:      win32
+[debug] [2026-01-17T18:35:47.564Z] Node Version:  v20.19.6
+[debug] [2026-01-17T18:35:47.564Z] Time:          Sat Jan 17 2026 19:35:47 GMT+0100 (West Africa Standard Time)
+[debug] [2026-01-17T18:35:47.564Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-01-17T18:35:48.087Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-01-17T18:35:48.088Z] > authorizing via signed-in user (amaechi.u@gmail.com)
+[debug] [2026-01-17T18:35:48.088Z] [iam] checking project new-prototype-rf4jc for permissions ["firebase.projects.get","firebasehosting.sites.get"]
+[debug] [2026-01-17T18:35:48.089Z] Checked if tokens are valid: false, expires at: 1768675735470
+[debug] [2026-01-17T18:35:48.089Z] Checked if tokens are valid: false, expires at: 1768675735470
+[debug] [2026-01-17T18:35:48.090Z] > refreshing access token with scopes: []
+[debug] [2026-01-17T18:35:48.092Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-01-17T18:35:48.092Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-01-17T18:35:49.432Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-01-17T18:35:49.432Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-01-17T18:35:49.463Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/new-prototype-rf4jc:testIamPermissions [none]
+[debug] [2026-01-17T18:35:49.464Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/new-prototype-rf4jc:testIamPermissions x-goog-quota-user=projects/new-prototype-rf4jc
+[debug] [2026-01-17T18:35:49.464Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/new-prototype-rf4jc:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.get"]}
+[debug] [2026-01-17T18:35:50.925Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/new-prototype-rf4jc:testIamPermissions 200
+[debug] [2026-01-17T18:35:50.925Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/new-prototype-rf4jc:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.get"]}
+[debug] [2026-01-17T18:35:50.926Z] Checked if tokens are valid: true, expires at: 1768678548432
+[debug] [2026-01-17T18:35:50.926Z] Checked if tokens are valid: true, expires at: 1768678548432
+[debug] [2026-01-17T18:35:50.927Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/new-prototype-rf4jc/sites pageToken=&pageSize=10
+[debug] [2026-01-17T18:35:58.814Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/new-prototype-rf4jc/sites 200
+[debug] [2026-01-17T18:35:58.814Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/new-prototype-rf4jc/sites {"sites":[{"name":"projects/new-prototype-rf4jc/sites/airealestate","defaultUrl":"https://airealestate.web.app","appId":"1:404592663136:web:ee2ea8ae1e77501d18c105","type":"USER_SITE"},{"name":"projects/new-prototype-rf4jc/sites/new-prototype-rf4jc","defaultUrl":"https://new-prototype-rf4jc.web.app","type":"DEFAULT_SITE"},{"name":"projects/new-prototype-rf4jc/sites/new-prototype-rf4jc-5f08","defaultUrl":"https://new-prototype-rf4jc-5f08.web.app","type":"USER_SITE"},{"name":"projects/new-prototype-rf4jc/sites/next-agent1","defaultUrl":"https://next-agent1.web.app","appId":"1:404592663136:web:6f44dc806f7c807818c105","type":"USER_SITE"}]}
+[info] 
+[info] Sites for project new-prototype-rf4jc
+[info] 
+[info] ┌──────────────────────────┬──────────────────────────────────────────┬───────────────────────────────────────────┐
+│ Site ID                  │ Default URL                              │ App ID (if set)                           │
+├──────────────────────────┼──────────────────────────────────────────┼───────────────────────────────────────────┤
+│ airealestate             │ https://airealestate.web.app             │ 1:404592663136:web:ee2ea8ae1e77501d18c105 │
+├──────────────────────────┼──────────────────────────────────────────┼───────────────────────────────────────────┤
+│ new-prototype-rf4jc      │ https://new-prototype-rf4jc.web.app      │ --                                        │
+├──────────────────────────┼──────────────────────────────────────────┼───────────────────────────────────────────┤
+│ new-prototype-rf4jc-5f08 │ https://new-prototype-rf4jc-5f08.web.app │ --                                        │
+├──────────────────────────┼──────────────────────────────────────────┼───────────────────────────────────────────┤
+│ next-agent1              │ https://next-agent1.web.app              │ 1:404592663136:web:6f44dc806f7c807818c105 │
+└──────────────────────────┴──────────────────────────────────────────┴───────────────────────────────────────────┘
+[debug] [2026-01-17T18:36:08.864Z] Error: Timed out.
+    at Timeout._onTimeout (C:\Users\Amaechi Ubadike\AppData\Roaming\npm\node_modules\firebase-tools\lib\utils.js:308:49)
+    at listOnTimeout (node:internal/timers:581:17)
+    at process.processTimers (node:internal/timers:519:7)
+[error] 
+[error] Error: An unexpected error has occurred.
