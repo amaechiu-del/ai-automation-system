@@ -1,4 +1,28 @@
+# env
 .env
+.env.local
+.env.production
+.env.staging
+
+# dependencies
 node_modules/
-.firebase/
+
+# next.js
 .next/
+out/
+
+# firebase
+.firebase/
+firebase-debug.log
+
+# misc
+*.log
+.DS_Store
+
+# build artifacts
+dist/
+build/
+tsconfig.tsbuildinfo
+
+# lock files (keep package-lock.json, ignore yarn.lock to avoid duplication)
+yarn.lock
