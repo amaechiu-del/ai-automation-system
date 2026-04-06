@@ -22,3 +22,7 @@ firebase-debug.log
 # build artifacts
 dist/
 build/
+tsconfig.tsbuildinfo
+
+# lock files (keep package-lock.json, ignore yarn.lock to avoid duplication)
+yarn.lock
