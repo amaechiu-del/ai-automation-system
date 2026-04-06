@@ -1,11 +1,27 @@
 ﻿/** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  // Hybrid mode: SSG pages + API routes
   images: {
     unoptimized: true,
+    remotePatterns: [
+      { protocol: 'https', hostname: '**' },
+    ],
   },
-  trailingSlash: true,
-  distDir: '.next',
-}
+  experimental: {
+    serverComponentsExternalPackages: ['@google-cloud/firestore', 'firebase-admin'],
+  },
+  async headers() {
+    return [
+      {
+        source: '/api/:path*',
+        headers: [
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          { key: 'X-Frame-Options', value: 'DENY' },
+          { key: 'X-XSS-Protection', value: '1; mode=block' },
+        ],
+      },
+    ];
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
